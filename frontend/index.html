@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Crew — LangGraph AI Developer Crew</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="navbar">
+            <div class="logo-group">
+                <div class="logo-icon">⚡</div>
+                <div>
+                    <h1 class="logo-title">DEV CREW</h1>
+                    <p class="logo-subtitle">LangGraph Autonomous Developer & QA Crew</p>
+                </div>
+            </div>
+            <div class="api-config">
+                <label for="api-url-input">Backend URL:</label>
+                <input type="text" id="api-url-input" value="https://dev-crew.onrender.com" placeholder="https://dev-crew.onrender.com">
+                <span class="status-indicator" id="health-status" title="Server Status">●</span>
+            </div>
+        </header>
+
+        <!-- Main Content Grid -->
+        <main class="main-grid">
+            <!-- Left Panel: Input & Control -->
+            <section class="panel control-panel">
+                <h2 class="panel-title">
+                    <span class="icon">🚀</span> Task Submission
+                </h2>
+                
+                <form id="task-form">
+                    <div class="form-group">
+                        <label for="task-input">Describe Coding Requirement</label>
+                        <textarea 
+                            id="task-input" 
+                            rows="5" 
+                            placeholder="e.g. Write a Python function to check whether a number is prime and return its prime factors." 
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="action-select">Manager Decision Routing</label>
+                        <select id="action-select">
+                            <option value="store">Store / Complete Task (Archiver)</option>
+                            <option value="another">Another Task (Route Back to Developer)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="primary-btn">
+                        <span id="btn-text">Execute Dev Crew Workflow</span>
+                        <div id="btn-spinner" class="spinner hidden"></div>
+                    </button>
+                </form>
+
+                <!-- Workflow Diagram -->
+                <div class="workflow-stepper">
+                    <h3 class="stepper-title">LangGraph Architecture Flow</h3>
+                    <div class="steps-container">
+                        <div class="step-card" id="step-task">
+                            <div class="step-num">1</div>
+                            <div class="step-label">Task Input</div>
+                        </div>
+                        <div class="step-card" id="step-dev">
+                            <div class="step-num">2</div>
+                            <div class="step-label">Developer</div>
+                        </div>
+                        <div class="step-card" id="step-test">
+                            <div class="step-num">3</div>
+                            <div class="step-label">Tester</div>
+                        </div>
+                        <div class="step-card" id="step-manager">
+                            <div class="step-num">4</div>
+                            <div class="step-label">Manager</div>
+                        </div>
+                        <div class="step-card" id="step-archive">
+                            <div class="step-num">5</div>
+                            <div class="step-label">Archiver</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Panel: Outputs -->
+            <section class="panel output-panel">
+                <div class="output-header">
+                    <h2 class="panel-title">
+                        <span class="icon">💻</span> Crew Outputs
+                    </h2>
+                    <div id="execution-badge" class="badge idle">Idle</div>
+                </div>
+
+                <div class="output-section">
+                    <div class="section-title">
+                        <span>👩‍💻 Developer Node — Generated Python Code</span>
+                    </div>
+                    <div class="code-container">
+                        <pre><code id="code-output"># Python code generated by real_time_developer will appear here...</code></pre>
+                    </div>
+                </div>
+
+                <div class="output-section">
+                    <div class="section-title">
+                        <span>🧪 Tester Node — QA Scenarios & Execution Log</span>
+                    </div>
+                    <div class="log-container">
+                        <pre><code id="report-output"># QA Test scenarios and execution output will appear here...</code></pre>
+                    </div>
+                </div>
+
+                <div class="output-section">
+                    <div class="section-title">
+                        <span>📋 Manager & Archiver Summary</span>
+                    </div>
+                    <div class="summary-box" id="summary-output">
+                        <p>No active session. Submit a task to begin the workflow.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

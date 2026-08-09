@@ -1,0 +1,40 @@
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.hypothesis/
+
+# Environment Variables
+.env
+.env.local
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Database
+*.db
+*.sqlite3
+postgres_data/
+
+# Logs
+*.log
+logs/
+
