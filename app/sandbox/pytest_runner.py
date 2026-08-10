@@ -18,15 +18,41 @@ from app.core.state import CodeFile, TestResult, TestStatus
 
 
 def prepare_workspace(code_files: Dict[str, CodeFile], base_dir: str) -> str:
-    """Write generated code files into an isolated workspace directory."""
+    """Write generated code files safely inside the isolated workspace."""
     os.makedirs(base_dir, exist_ok=True)
+
     for path, code_file in code_files.items():
-        full_path = os.path.join(base_dir, path)
-        os.makedirs(os.path.dirname(full_path) or base_dir, exist_ok=True)
+        # Convert Windows separators to Unix-style separators
+        safe_path = path.replace("\\", "/")
+
+        # Remove leading slashes so absolute paths cannot escape base_dir
+        safe_path = safe_path.lstrip("/")
+
+        # Prevent directory traversal such as ../../some_file.py
+        safe_path = os.path.normpath(safe_path)
+
+        if safe_path == ".." or safe_path.startswith("../"):
+            raise ValueError(f"Unsafe file path rejected: {path}")
+
+        full_path = os.path.join(base_dir, safe_path)
+
+        # Final safety check: file must remain inside workspace
+        base_real = os.path.realpath(base_dir)
+        full_real = os.path.realpath(full_path)
+
+        if not (
+            full_real == base_real
+            or full_real.startswith(base_real + os.sep)
+        ):
+            raise ValueError(f"Unsafe file path rejected: {path}")
+
+        parent_dir = os.path.dirname(full_path)
+        os.makedirs(parent_dir, exist_ok=True)
+
         with open(full_path, "w", encoding="utf-8") as f:
             f.write(code_file.content)
-    return base_dir
 
+    return base_dir
 
 def parse_pytest_output(stdout: str, stderr: str, exit_code: int, duration: float) -> TestResult:
     """Parse pytest stdout/stderr and exit code into a structured TestResult."""
